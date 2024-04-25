@@ -38,14 +38,19 @@ def main():
         err_details = e.response.json()
         print(f'{err_details.get("result", "Unknown error occurred!")}')
         return
-    user_data = res.get("result", "Unknown error occurred!")
+    user_data = res.json().get("result", "Unknown error occurred!")
     success_message = f"""You have been successfully registered!
-    username: {user_data.get("user_id")}
-    password: {user_data.get("password")}
-    X_API_KEY: {user_data.get("x_api_key")}
-    X_API_SECRET: {user_data.get("x_api_secret")}
-    Please keep your password in a safe place! Password & X_API_SECRET are not recoverable.
-    """
+
+Your website credentials are:
+username: {user_data.get("user_id")}
+password: {user_data.get("password")}
+
+Your API key and secret are (required for Headers):
+x-api-key: {user_data.get("api_key")}
+x-api-secret: {user_data.get("api_secret")}
+
+Please keep your password in a safe place! Password & X_API_SECRET are not recoverable.
+"""
     print(success_message)
 
 
